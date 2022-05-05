@@ -107,9 +107,13 @@
   your_pic.addEventListener('load', (e) => {
 
     $resizer.style.display = 'inline-block';
+    $posx.style.display = 'inline-block';
+    $posy.style.display = 'inline-block';
     $arrows.style.display = 'block';
 
     $resizer.value = 100;
+    $posx.value = 0;
+    $posy.value = 0;
     $resizer.addEventListener('change', (e) => {
     })
   })

@@ -12,7 +12,7 @@ main {
   width: 100%;
 }
 
-#resizer {
+#resizer, #posy, #posx {
   display: none;
 }
 

@@ -138,12 +138,12 @@
   $moves = $arrows.getElementsByClassName('move');
   let move = 'none';
   for(m=0;m<$moves.length;m++) {
-    $moves[m].addEventListener(pointerDown, (e) => {
+    $moves[m].addEventListener('mousedown touchstart', (e) => {
 
       move = e.target.id;
     }, false)
 
-    $moves[m].addEventListener(pointerUp, (e) => {
+    $moves[m].addEventListener('mouseup touchend', (e) => {
 
       move ='none';
     }, false)

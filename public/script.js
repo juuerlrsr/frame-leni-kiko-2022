@@ -139,9 +139,13 @@
   let move = 'none';
   for(m=0;m<$moves.length;m++) {
     $moves[m].addEventListener(pointerDown, (e) => {
-      e.stopPropagation();
-      e.preventDefault(); 
+
       move = e.target.id;
+    }, false)
+
+    $moves[m].addEventListener(pointerUp, (e) => {
+
+      move ='none';
     }, false)
 
   }

@@ -92,7 +92,23 @@
   }
 
   preloadImg();
+  const downEvent =  (e) => {
+    mouse_drag.down = true;
+    mouse_drag.px = (e.pageX - $canvas.offsetLeft);
+    mouse_drag.py = (e.pageY - $canvas.offsetTop);
+  };
 
+  const moveEvent = (e) => {
+      
+    if(mouse_drag.down) {
+      mouse_drag.x += ((e.pageX - $canvas.offsetLeft)-mouse_drag.px)/30;
+      mouse_drag.y += ((e.pageY - $canvas.offsetTop)-mouse_drag.py)/30;
+    }
+  };
+
+  const upEvent =  (e) => {
+    mouse_drag.down = false;
+  };
   your_pic.addEventListener('load', (e) => {
     $canvas.style.cursor = 'move';
     mouse_drag.down = false;
@@ -103,21 +119,12 @@
     $resizer.value = 100;
     $resizer.addEventListener('change', (e) => {
     })
-    $canvas.addEventListener('mousedown', (e) => {
-      mouse_drag.down = true;
-      mouse_drag.px = (e.pageX - $canvas.offsetLeft);
-      mouse_drag.py = (e.pageY - $canvas.offsetTop);
-    })
-    $canvas.addEventListener('mouseup', (e) => {
-      mouse_drag.down = false;
-    })
-    $canvas.addEventListener('mousemove', (e) => {
-      
-      if(mouse_drag.down) {
-        mouse_drag.x += ((e.pageX - $canvas.offsetLeft)-mouse_drag.px)/30;
-        mouse_drag.y += ((e.pageY - $canvas.offsetTop)-mouse_drag.py)/30;
-      }
-    })
+    $canvas.addEventListener('mousedown', downEvent)
+    $canvas.addEventListener('mouseup', upEvent)
+    $canvas.addEventListener('mousemove', moveEvent)
+    $canvas.addEventListener('touchstart', downEvent)
+    $canvas.addEventListener('touchend', upEvent)
+    $canvas.addEventListener('touchmove', moveEvent)
   })
   $ikaw.addEventListener('change', (e) => {
     if (e.target.files && e.target.files[0]) {

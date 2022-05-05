@@ -229,6 +229,11 @@
     ctx.drawImage(text_canvas, 0, 0);
   }
 
+  window.requestAnimationFrame = window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||             
+    window.msRequestAnimationFrame;
+
   requestAnimationFrame(draw);
 
   $save.addEventListener('click', function(e) {

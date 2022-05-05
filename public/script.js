@@ -126,7 +126,9 @@
 
       ctx.clearRect(0,0,$canvas.width,$canvas.height);
       const scale = $resizer.value/100;
-      ctx.drawImage(your_pic, ($posx.value/100)*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),($posy.value/100)*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      const posx = $posx.value/100;
+      const posy = $posy.value/100;
+      ctx.drawImage(your_pic, posx*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),posy*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();

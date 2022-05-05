@@ -26,17 +26,24 @@
 
   <main>
     <p>
-      <textarea placeholder="SUPPORTERS" id="tayo"/></textarea>
-      <br/>
+      <label for="tayo">Enter text below</label>
     </p>
-    
-    <canvas id="kuwadro" width="1000" height="1000"></canvas>
     <p>
+      <textarea placeholder="SUPPORTERS" id="tayo"></textarea>
+      <br />  
       <button id="choose"onclick="document.getElementById('ikaw').click();">Choose Picture</button>
       <input type="file" id="ikaw" name="ikaw" accept="image/png, image/jpeg">
     </p>
+    <canvas id="kuwadro" width="1000" height="1000"></canvas>
     <p>
+
       <input type="range" min="25" max="400" value="100" step="10" id="resizer">
+    </p>
+    <p id="arrows">
+      <button type="button" id="left" class="move">&#11013;</button>
+      <button type="button" id="up" class="move">&#11014;</button>
+      <button type="button" id="down" class="move">&#11015;</button>
+      <button type="button" id="right" class="move">&#10145;</button>
     </p>
     <p>
       <button type="button" id="save">Save</button>

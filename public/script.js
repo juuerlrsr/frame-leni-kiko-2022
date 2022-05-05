@@ -16,6 +16,7 @@
   const $canvas = document.getElementById('kuwadro');
   const $ikaw = document.getElementById('ikaw');
   const $resizer = document.getElementById('resizer');
+  const $arrows = document.getElementById('arrows');
 
   const text_canvas = document.createElement('canvas');
   const tctx = text_canvas.getContext('2d');
@@ -41,16 +42,11 @@
   const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
   const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
-  let mouse_drag = {
-    down: false,
-    x: 0,
-    y: 0,
-    px:0,
-    py:0,
-    ox: 0,
-    oy: 0
-  }
 
+  let offset = {
+    x: 0,
+    y: 0
+  };
   text_canvas.width = 1000;
   text_canvas.height = 1000;
 
@@ -105,63 +101,15 @@
   }
 
   preloadImg();
-  const downEvent =  (e) => {
-
-    let pageX = 0;
-    let pageY = 0;
-    if(hasTouch || hasTouchEvents) {
-      pageX = e.changedTouches[0].pageX;
-      pageY = e.changedTouches[0].pageY;
-    } else {
-      pageX = e.pageX;
-      pageY = e.pageY;
-    }
-
-    mouse_drag.down = true;
-    mouse_drag.px = (pageX - $canvas.offsetLeft);
-    mouse_drag.py = (pageY - $canvas.offsetTop);
-  };
-
-  const upEvent =  (e) => {
-    if(mouse_drag.down) {
-
-      let pageX = 0;
-      let pageY = 0;
-      if(onTouch) {
-        pageX = e.changedTouches[0].pageX;
-        pageY = e.changedTouches[0].pageY;
-      } else {
-        pageX = e.pageX;
-        pageY = e.pageY;
-      }
-
-      mouse_drag.down = false;
-      const xx = ((pageX - $canvas.offsetLeft) - mouse_drag.px);
-      const yy =  ((pageY - $canvas.offsetTop) - mouse_drag.py);
-      mouse_drag.ox += xx;
-      mouse_drag.oy += yy;
-    }
-  };
-
-  const moveEvent = (e) => {
-      
-    if(mouse_drag.down) {
-    }
-  };
 
   your_pic.addEventListener('load', (e) => {
-    $canvas.style.cursor = 'move';
-    mouse_drag.down = false;
-    mouse_drag.x = 0;
-    mouse_drag.y = 0;
 
     $resizer.style.display = 'inline-block';
+    $arrows.style.display = 'block';
+
     $resizer.value = 100;
     $resizer.addEventListener('change', (e) => {
     })
-    $canvas.addEventListener(pointerDown, downEvent, false)
-    $canvas.addEventListener(pointerUp, upEvent, false)
-    $canvas.addEventListener(pointerMove, moveEvent, false)
   })
   $ikaw.addEventListener('change', (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -176,7 +124,7 @@
 
       ctx.clearRect(0,0,$canvas.width,$canvas.height);
       const scale = $resizer.value/100;
-      ctx.drawImage(your_pic, mouse_drag.ox+($canvas.width/2-(your_pic.width*scale)/2),mouse_drag.oy+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      ctx.drawImage(your_pic, offset.x+($canvas.width/2-(your_pic.width*scale)/2),offset.y+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();
@@ -186,7 +134,34 @@
 
   }
 
+  
+  $moves = $arrows.getElementsByClassName("move");
+  let move = "none";
+  for(m=0;m<$moves.length;m++) {
+    $moves[m].addEventListener(pointerDown, (e) => {
+      move = e.target.id;
+    })
+
+    $moves[m].addEventListener(pointerUp, (e) => {
+      move = "none";
+    })
+  }
   const drawText = () => {
+
+    switch(move) {
+      case 'up':
+        offset.y-=2;
+      break;
+      case 'down':
+        offset.y+=2;
+      break;
+      case 'left':
+        offset.x-=2;
+      break;
+      case 'right':
+        offset.x+=2;
+      break;
+    }
     tctx.clearRect(0,0,text_canvas.width,text_canvas.height);
     tctx.setTransform (0.99, -0.10, -0.19, 1.03, 0, 0);
     tctx.font = '70px Montserrat';

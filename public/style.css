@@ -9,6 +9,7 @@ main {
 
 #kuwadro {
   background-color: rgb(255, 243, 243);
+  width: 100%;
 }
 
 #resizer {
@@ -17,4 +18,12 @@ main {
 
 #ikaw {
   display: none;
+}
+
+#arrows {
+  display: none;
+}
+#arrows button.move {
+  display: inline-block;
+  width: 10%;
 }

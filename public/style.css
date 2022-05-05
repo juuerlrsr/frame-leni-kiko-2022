@@ -28,9 +28,9 @@ main {
   width: 10%;
 }
 
-div, image, button {
-  user-select:none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+div, image, button, p, label, h1 {
+  user-select:none !important;
+  -moz-user-select: none !important;
+  -webkit-user-select: none !important;
+  -ms-user-select: none !important;
 }

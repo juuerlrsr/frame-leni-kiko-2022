@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+<title>Leni-Kiko 2022 #IpanaloNa10To Frame Generator</title>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet"> 
+
+  <link rel="stylesheet" href="public/simple-v1.min.css" />
+  <link rel="stylesheet" href="public/style.css" />
+</head>
+<body>
+  
+  <header>
+    <h1>Leni-Kiko 2022 Frame Generator</h1>
+    <p>#IpanaloNa10To</p>
+  </header>
+
+  <main>
+    <p>
+      <textarea placeholder="SUPPORTERS" id="tayo"/></textarea>
+      <br/>
+    </p>
+    
+    <canvas id="kuwadro" width="1000" height="1000"></canvas>
+    <p>
+      <button id="choose"onclick="document.getElementById('ikaw').click();">Choose Picture</button>
+      <input type="file" id="ikaw" name="ikaw" accept="image/png, image/jpeg">
+    </p>
+    <p>
+      <input type="range" min="25" max="400" value="100" step="10" id="resizer">
+    </p>
+    <p>
+      <button type="button" id="save">Save</button>
+    </p>
+  </main>
+
+  <footer>
+    <p>#IpanaloNa10To</p>
+  </footer>
+
+  <script src="public/script.js"></script>
+</body>
+</html>

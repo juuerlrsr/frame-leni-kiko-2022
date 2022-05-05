@@ -24,11 +24,17 @@
   const frame_img = new Image();
   const mask = new Image();
   const your_pic = new Image();
-
+  const onTouch = false;
 
   frame_img.crossOrigin='Anonymous';
   mask.crossOrigin='Anonymous';
   your_pic.crossOrigin='Anonymous';
+
+  if (('ontouchstart' in window) ||
+     (navigator.maxTouchPoints > 0) ||
+     (navigator.msMaxTouchPoints > 0)) {
+       onTouch = true;
+  }
 
   let mouse_drag = {
     down: false,
@@ -95,16 +101,38 @@
 
   preloadImg();
   const downEvent =  (e) => {
+
+    let pageX = 0;
+    let pageY = 0;
+    if(onTouch) {
+      pageX = e.changeTouches[0].pageX;
+      pageY = e.changeTouches[0].pageY;
+    } else {
+      pageX = e.pageX;
+      pageY = e.pageY;
+    }
+    
     mouse_drag.down = true;
-    mouse_drag.px = (e.pageX - $canvas.offsetLeft);
-    mouse_drag.py = (e.pageY - $canvas.offsetTop);
+    mouse_drag.px = (pageX - $canvas.offsetLeft);
+    mouse_drag.py = (pageY - $canvas.offsetTop);
   };
 
   const upEvent =  (e) => {
     if(mouse_drag.down) {
+
+      let pageX = 0;
+      let pageY = 0;
+      if(onTouch) {
+        pageX = e.changeTouches[0].pageX;
+        pageY = e.changeTouches[0].pageY;
+      } else {
+        pageX = e.pageX;
+        pageY = e.pageY;
+      }
+
       mouse_drag.down = false;
-      const xx = ((e.pageX - $canvas.offsetLeft) - mouse_drag.px)*($canvas.width/1000);
-      const yy =  ((e.pageY - $canvas.offsetTop) - mouse_drag.py)*($canvas.height/1000);
+      const xx = ((pageX - $canvas.offsetLeft) - mouse_drag.px)*($canvas.width/1000);
+      const yy =  ((pageY - $canvas.offsetTop) - mouse_drag.py)*($canvas.height/1000);
       mouse_drag.ox += xx;
       mouse_drag.oy += yy;
     }

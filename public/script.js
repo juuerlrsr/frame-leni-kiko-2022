@@ -122,9 +122,9 @@
     $canvas.addEventListener('mousedown', downEvent)
     $canvas.addEventListener('mouseup', upEvent)
     $canvas.addEventListener('mousemove', moveEvent)
-    $canvas.addEventListener('touchstart', downEvent)
-    $canvas.addEventListener('touchend', upEvent)
-    $canvas.addEventListener('touchmove', moveEvent)
+    $canvas.addEventListener('touchstart', downEvent, false)
+    $canvas.addEventListener('touchend', upEvent, false)
+    $canvas.addEventListener('touchmove', moveEvent, false)
   })
   $ikaw.addEventListener('change', (e) => {
     if (e.target.files && e.target.files[0]) {

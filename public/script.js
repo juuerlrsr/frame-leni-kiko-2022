@@ -105,13 +105,13 @@
     let pageX = 0;
     let pageY = 0;
     if(onTouch) {
-      pageX = e.changeTouches[0].pageX;
-      pageY = e.changeTouches[0].pageY;
+      pageX = e.changedTouches[0].pageX;
+      pageY = e.changedTouches[0].pageY;
     } else {
       pageX = e.pageX;
       pageY = e.pageY;
     }
-    
+
     mouse_drag.down = true;
     mouse_drag.px = (pageX - $canvas.offsetLeft);
     mouse_drag.py = (pageY - $canvas.offsetTop);
@@ -123,8 +123,8 @@
       let pageX = 0;
       let pageY = 0;
       if(onTouch) {
-        pageX = e.changeTouches[0].pageX;
-        pageY = e.changeTouches[0].pageY;
+        pageX = e.changedTouches[0].pageX;
+        pageY = e.changedTouches[0].pageY;
       } else {
         pageX = e.pageX;
         pageY = e.pageY;

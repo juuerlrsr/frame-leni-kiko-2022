@@ -1,7 +1,10 @@
 /**
- * #IpanaloNa10Ito
+ * #IpanaloNa10Ito #LeniKiko2022 #NeverAgain
  * 
  * 
+ * "And you can also commit injustice by doing nothing." - Marcus Aurelius
+ * 
+ * P.S. I apologize for the messy and monolithic code.
  * 
  */
 !function(window, document) {
@@ -18,7 +21,6 @@
   const $resizer = document.getElementById('resizer');
   const $posx = document.getElementById('posx');
   const $posy = document.getElementById('posy');
-  const $arrows = document.getElementById('arrows');
 
   const text_canvas = document.createElement('canvas');
   const tctx = text_canvas.getContext('2d');
@@ -109,7 +111,6 @@
     $resizer.style.display = 'inline-block';
     $posx.style.display = 'inline-block';
     $posy.style.display = 'inline-block';
-    $arrows.style.display = 'block';
 
     $resizer.value = 100;
     $posx.value = 0;
@@ -132,7 +133,7 @@
       const scale = $resizer.value/100;
       const posx = $posx.value/100;
       const posy = $posy.value/100;
-      ctx.drawImage(your_pic, offset.x+posx*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),offset.y+posy*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      ctx.drawImage(your_pic, posx*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),posy*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();
@@ -143,36 +144,9 @@
   }
 
   
-  $moves = $arrows.getElementsByClassName('move');
-  let move = 'none';
-  for(m=0;m<$moves.length;m++) {
-    $moves[m].addEventListener(pointerDown, (e) => {
-
-      move = e.target.id;
-    })
-
-    $moves[m].addEventListener(pointerUp, (e) => {
-
-      move ='none';
-    })
-
-  }
+  
   const drawText = () => {
 
-    switch(move) {
-      case 'up':
-        offset.y-=2;
-      break;
-      case 'down':
-        offset.y+=2;
-      break;
-      case 'left':
-        offset.x-=2;
-      break;
-      case 'right':
-        offset.x+=2;
-      break;
-    }
     tctx.clearRect(0,0,text_canvas.width,text_canvas.height);
     tctx.setTransform (0.99, -0.10, -0.19, 1.03, 0, 0);
     tctx.font = '70px Montserrat';

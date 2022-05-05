@@ -35,3 +35,21 @@ div, image, button, p, label, h1 {
   -webkit-user-select: none !important;
   -ms-user-select: none !important;
 }
+
+header.header {
+  background-color: snow;
+}
+
+header.header > h1 {
+  color:#e22488;
+  font-style: italic;
+  font-family: Montserrat, san-serif;
+}
+
+button {
+  background-color: #e22488;
+  font-weight: bold;
+}
+a {
+  color: #e22488 !important;
+}

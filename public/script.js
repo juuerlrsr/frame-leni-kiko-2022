@@ -24,17 +24,22 @@
   const frame_img = new Image();
   const mask = new Image();
   const your_pic = new Image();
-  const onTouch = false;
 
   frame_img.crossOrigin='Anonymous';
   mask.crossOrigin='Anonymous';
   your_pic.crossOrigin='Anonymous';
 
-  if (('ontouchstart' in window) ||
-     (navigator.maxTouchPoints > 0) ||
-     (navigator.msMaxTouchPoints > 0)) {
-       onTouch = true;
-  }
+  const hasTouchEvents = 'ontouchstart' in window;
+  const hasPointerEvents = window.PointerEvent;
+  const hasTouch = hasTouchEvents
+      || window.DocumentTouch && document instanceof DocumentTouch
+      || navigator.maxTouchPoints; // IE >=11
+
+  const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
+  const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;
+  const pointerUp = !hasTouch ? 'mouseup' : `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
+  const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
+  const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
   let mouse_drag = {
     down: false,
@@ -104,7 +109,7 @@
 
     let pageX = 0;
     let pageY = 0;
-    if(onTouch) {
+    if(hasTouch || hasTouchEvents) {
       pageX = e.changedTouches[0].pageX;
       pageY = e.changedTouches[0].pageY;
     } else {
@@ -131,8 +136,8 @@
       }
 
       mouse_drag.down = false;
-      const xx = ((pageX - $canvas.offsetLeft) - mouse_drag.px)*($canvas.width/1000);
-      const yy =  ((pageY - $canvas.offsetTop) - mouse_drag.py)*($canvas.height/1000);
+      const xx = ((pageX - $canvas.offsetLeft) - mouse_drag.px);
+      const yy =  ((pageY - $canvas.offsetTop) - mouse_drag.py);
       mouse_drag.ox += xx;
       mouse_drag.oy += yy;
     }
@@ -154,12 +159,9 @@
     $resizer.value = 100;
     $resizer.addEventListener('change', (e) => {
     })
-    $canvas.addEventListener('mousedown', downEvent)
-    $canvas.addEventListener('mouseup', upEvent)
-    $canvas.addEventListener('mousemove', moveEvent)
-    $canvas.addEventListener('touchstart', downEvent, false)
-    $canvas.addEventListener('touchend', upEvent, false)
-    $canvas.addEventListener('touchmove', moveEvent, false)
+    $canvas.addEventListener(pointerDown, downEvent, false)
+    $canvas.addEventListener(pointerUp, upEvent, false)
+    $canvas.addEventListener(pointerMove, moveEvent, false)
   })
   $ikaw.addEventListener('change', (e) => {
     if (e.target.files && e.target.files[0]) {

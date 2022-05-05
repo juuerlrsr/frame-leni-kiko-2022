@@ -73,8 +73,8 @@
 
 
   const resize = () => {
-    let wh = window.innerHeight;
-    let ww = window.innerWidth;
+    let wh = $canvas.style.height;
+    let ww = $canvas.style.width;
 
       if(wh<ww) {
         $canvas.style.width = wh+'px';
@@ -83,10 +83,10 @@
         text_canvas.style.height = wh+'px';
       }
       else {
-        $canvas.style.width = wh+'px';
-        $canvas.style.height = wh+'px';
-        text_canvas.style.width = wh+'px';
-        text_canvas.style.height = wh+'px';
+        $canvas.style.width = ww+'px';
+        $canvas.style.height = ww+'px';
+        text_canvas.style.width = ww+'px';
+        text_canvas.style.height = ww+'px';
       }
   }
   window.addEventListener('resize', resize);
@@ -132,7 +132,7 @@
       const scale = $resizer.value/100;
       const posx = $posx.value/100;
       const posy = $posy.value/100;
-      ctx.drawImage(your_pic, posx*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),posy*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      ctx.drawImage(your_pic, offset.x+posx*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),offset.y+posy*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();

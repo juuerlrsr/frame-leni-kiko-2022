@@ -35,7 +35,9 @@
     x: 0,
     y: 0,
     px:0,
-    py:0
+    py:0,
+    ox: 0,
+    oy: 0
   }
 
   text_canvas.width = 1000;
@@ -98,17 +100,22 @@
     mouse_drag.py = (e.pageY - $canvas.offsetTop);
   };
 
-  const moveEvent = (e) => {
-      
+  const upEvent =  (e) => {
     if(mouse_drag.down) {
-      mouse_drag.x += ((e.pageX - $canvas.offsetLeft)-mouse_drag.px)/30;
-      mouse_drag.y += ((e.pageY - $canvas.offsetTop)-mouse_drag.py)/30;
+      mouse_drag.down = false;
+      const xx = ((e.pageX - $canvas.offsetLeft) - mouse_drag.px)*($canvas.width/1000);
+      const yy =  ((e.pageY - $canvas.offsetTop) - mouse_drag.py)*($canvas.height/1000);
+      mouse_drag.ox += xx;
+      mouse_drag.oy += yy;
     }
   };
 
-  const upEvent =  (e) => {
-    mouse_drag.down = false;
+  const moveEvent = (e) => {
+      
+    if(mouse_drag.down) {
+    }
   };
+
   your_pic.addEventListener('load', (e) => {
     $canvas.style.cursor = 'move';
     mouse_drag.down = false;
@@ -139,7 +146,7 @@
 
       ctx.clearRect(0,0,$canvas.width,$canvas.height);
       const scale = $resizer.value/100;
-      ctx.drawImage(your_pic, (mouse_drag.x-(your_pic.width*scale)/2),(mouse_drag.y-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      ctx.drawImage(your_pic, mouse_drag.ox+($canvas.width/2-(your_pic.width*scale)/2),mouse_drag.oy+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();

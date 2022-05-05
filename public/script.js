@@ -141,12 +141,12 @@
     $moves[m].addEventListener(pointerDown, (e) => {
 
       move = e.target.id;
-    }, false)
+    })
 
     $moves[m].addEventListener(pointerUp, (e) => {
 
       move ='none';
-    }, false)
+    })
 
   }
   const drawText = () => {

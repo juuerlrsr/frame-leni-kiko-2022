@@ -16,6 +16,8 @@
   const $canvas = document.getElementById('kuwadro');
   const $ikaw = document.getElementById('ikaw');
   const $resizer = document.getElementById('resizer');
+  const $posx = document.getElementById('posx');
+  const $posy = document.getElementById('posy');
   const $arrows = document.getElementById('arrows');
 
   const text_canvas = document.createElement('canvas');
@@ -71,8 +73,8 @@
 
 
   const resize = () => {
-    let wh = window.innerHeight*0.7;
-    let ww = window.innerWidth*0.7;
+    let wh = window.innerHeight;
+    let ww = window.innerWidth;
 
       if(wh<ww) {
         $canvas.style.width = wh+'px';
@@ -124,7 +126,7 @@
 
       ctx.clearRect(0,0,$canvas.width,$canvas.height);
       const scale = $resizer.value/100;
-      ctx.drawImage(your_pic, offset.x+($canvas.width/2-(your_pic.width*scale)/2),offset.y+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
+      ctx.drawImage(your_pic, ($posx.value/100)*(your_pic.width*scale)+($canvas.width/2-(your_pic.width*scale)/2),($posy.value/100)*(your_pic.height*scale)+($canvas.height/2-(your_pic.height*scale)/2), your_pic.width*scale, your_pic.height*scale);
       ctx.drawImage(frame_img, 0, 0, 1000, 1000);
 
       drawText();

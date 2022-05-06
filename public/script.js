@@ -11,7 +11,7 @@
   const supporters = [
     'SUPPORTERS',
     'VOLUNTEERS',
-    'UHAW SA GOOD GOVERNANCE'
+    'MGA UHAW SA\nGOOD GOVERNANCE'
   ]
 
   const $tayo = document.getElementById('tayo');
